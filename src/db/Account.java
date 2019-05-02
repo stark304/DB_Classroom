@@ -19,7 +19,8 @@ public class Account {
     private String CategoryID;
     private String StatusID;
 
-    public Account(String AdvTitle, String AdvDetails, String AdvDateTime, float Price, String UserID, String ModeratorID, String CategoryID, String StatusID) {
+    public Account(int AdvertisementID, String AdvTitle, String AdvDetails, String AdvDateTime, float Price, String UserID, String ModeratorID, String CategoryID, String StatusID) {
+        this.AdvertisementID = AdvertisementID;
         this.AdvTitle = AdvTitle;
         this.AdvDetails = AdvDetails;
         this.AdvDateTime = AdvDateTime;
@@ -67,7 +68,7 @@ public class Account {
     }
 
     Object[] toArray() {
-        return new Object[]{AdvTitle, AdvDetails, AdvDateTime, Price, UserID, ModeratorID, CategoryID, StatusID};
+        return new Object[]{AdvTitle, AdvDetails, Price, AdvDateTime};
     }
 
 }

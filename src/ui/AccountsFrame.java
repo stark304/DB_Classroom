@@ -6,11 +6,11 @@
 package ui;
 
 import db.DBManager;
+
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
 /**
- *
  * @author kuhail
  */
 public class AccountsFrame extends javax.swing.JFrame {
@@ -20,13 +20,14 @@ public class AccountsFrame extends javax.swing.JFrame {
      */
     DBManager DB;
     String UserID;
-    String[] columns=new String [] {
-                "AdvTitle", "AdvDetails", "AdvDateTime", "Price", "UserID", "ModeratorID","CategoryID","StatusID"
-            };
+    String[] columns = new String[]{
+            "AdvTitle", "AdvDetails", "Price", "AdvDateTime"
+    };
+
     public AccountsFrame(DBManager DB, String UserID) {
         this.setTitle("Accounts Overview");
-        this.DB=DB;
-        this.UserID=UserID;
+        this.DB = DB;
+        this.UserID = UserID;
         initComponents();
         this.populate_accounts_table();
     }
@@ -51,12 +52,12 @@ public class AccountsFrame extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         accounts_table.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
+                new Object[][]{
 
-            },
-            new String [] {
-                "AdvertisementID","AdvTitle","AdvDetails","AdvDateTime","Price","UserID","ModeratorID","CategoryID","StatusID"
-            }
+                },
+                new String[]{
+                        "AdvertisementID", "AdvTitle", "AdvDetails", "AdvDateTime", "Price", "UserID", "ModeratorID", "CategoryID", "StatusID"
+                }
         ));
         jScrollPane1.setViewportView(accounts_table);
 
@@ -98,37 +99,37 @@ public class AccountsFrame extends javax.swing.JFrame {
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jScrollPane1)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(add_account_button)
-                        .addGap(18, 18, 18)
-                        .addComponent(search_box, javax.swing.GroupLayout.PREFERRED_SIZE, 235, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(delete_button, javax.swing.GroupLayout.PREFERRED_SIZE, 68, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(10, 10, 10)
-                        .addComponent(refresh_button)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(edit_button)))
-                .addContainerGap())
+                layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(layout.createSequentialGroup()
+                                .addContainerGap()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                        .addComponent(jScrollPane1)
+                                        .addGroup(layout.createSequentialGroup()
+                                                .addGap(0, 0, Short.MAX_VALUE)
+                                                .addComponent(add_account_button)
+                                                .addGap(18, 18, 18)
+                                                .addComponent(search_box, javax.swing.GroupLayout.PREFERRED_SIZE, 235, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                .addGap(18, 18, 18)
+                                                .addComponent(delete_button, javax.swing.GroupLayout.PREFERRED_SIZE, 68, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                .addGap(10, 10, 10)
+                                                .addComponent(refresh_button)
+                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                                .addComponent(edit_button)))
+                                .addContainerGap())
         );
         layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(46, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(edit_button)
-                    .addComponent(refresh_button)
-                    .addComponent(search_box, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(delete_button)
-                    .addComponent(add_account_button))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 148, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(61, 61, 61))
+                layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addContainerGap(46, Short.MAX_VALUE)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                        .addComponent(edit_button)
+                                        .addComponent(refresh_button)
+                                        .addComponent(search_box, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(delete_button)
+                                        .addComponent(add_account_button))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 148, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(61, 61, 61))
         );
 
         pack();
@@ -142,46 +143,46 @@ public class AccountsFrame extends javax.swing.JFrame {
     private void edit_buttonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_edit_buttonActionPerformed
         // TODO add your handling code here:
         int row = this.accounts_table.getSelectedRow();
-        if(row>=0){
-            String account_id=(String)accounts_table.getValueAt(row, 0);
-            String status=(String)accounts_table.getValueAt(row, 4);
+        if (row >= 0) {
+            String account_id = (String) accounts_table.getValueAt(row, 0);
+            String status = (String) accounts_table.getValueAt(row, 4);
             DB.changeAccountStatus(account_id, UserID, status);
         }
     }//GEN-LAST:event_edit_buttonActionPerformed
 
     private void search_boxKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_search_boxKeyReleased
         // TODO add your handling code here:
-        Object[][] accounts_data=DB.getAccounts(UserID);
-        this.accounts_table.setModel(new DefaultTableModel(accounts_data,columns));
+        Object[][] accounts_data = DB.getAccounts(UserID);
+        this.accounts_table.setModel(new DefaultTableModel(accounts_data, columns));
 
     }//GEN-LAST:event_search_boxKeyReleased
 
     private void delete_buttonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_delete_buttonActionPerformed
         int row = this.accounts_table.getSelectedRow();
-        boolean result=false;
-        if(row>=0){
-            String account_id=(String)accounts_table.getValueAt(row, 0);
-            result=DB.deleteAccount(account_id, UserID);
+        boolean result = false;
+        if (row >= 0) {
+            String account_id = (String) accounts_table.getValueAt(row, 0);
+            result = DB.deleteAccount(account_id, UserID);
         }
-        
-        if(result){
-             JOptionPane.showMessageDialog(this,
-    "Account was deleted correctly",
-    "Confirmation",
-    JOptionPane.INFORMATION_MESSAGE);
+
+        if (result) {
+            JOptionPane.showMessageDialog(this,
+                    "Account was deleted correctly",
+                    "Confirmation",
+                    JOptionPane.INFORMATION_MESSAGE);
         }
     }//GEN-LAST:event_delete_buttonActionPerformed
 
     private void add_account_buttonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_add_account_buttonActionPerformed
         // TODO add your handling code here:
-        AddAccountFrame addFrame=new AddAccountFrame(this,DB,UserID);
+        AddAccountFrame addFrame = new AddAccountFrame(this, DB, UserID);
         addFrame.setVisible(true);
     }//GEN-LAST:event_add_account_buttonActionPerformed
 
-public void populate_accounts_table(){
-    Object[][] accounts_data=DB.getAccounts(UserID);
-    this.accounts_table.setModel(new DefaultTableModel(accounts_data,columns));
-}
+    public void populate_accounts_table() {
+        Object[][] accounts_data = DB.getAccounts(UserID);
+        this.accounts_table.setModel(new DefaultTableModel(accounts_data, columns));
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTable accounts_table;
