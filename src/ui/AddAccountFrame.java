@@ -34,9 +34,9 @@ public class AddAccountFrame extends javax.swing.JFrame {
 
     private void populate_account_types() {
         LinkedList<Record> account_types = DB.getAccountTypes();
-        this.type_combo.removeAllItems();
+        this.Category_Add.removeAllItems();
         for (Record account_type : account_types) {
-            this.type_combo.addItem(account_type);
+            this.Category_Add.addItem(account_type);
         }
 
     }
@@ -50,92 +50,107 @@ public class AddAccountFrame extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jLabel1 = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
-        jLabel3 = new javax.swing.JLabel();
-        jLabel4 = new javax.swing.JLabel();
-        add_account_button = new javax.swing.JButton();
-        customer_id_textbox = new javax.swing.JTextField();
-        status_combo = new javax.swing.JComboBox();
-        branch_id_textbox = new javax.swing.JTextField();
-        type_combo = new javax.swing.JComboBox();
+        Title = new javax.swing.JLabel();
+        Details = new javax.swing.JLabel();
+        Category = new javax.swing.JLabel();
+        Price = new javax.swing.JLabel();
+        add_advertisement = new javax.swing.JButton();
+        AdvTitle = new javax.swing.JTextField();
+        price_box = new javax.swing.JTextField();
+        Category_Add = new javax.swing.JComboBox();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        jTextArea1 = new javax.swing.JTextArea();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jLabel1.setText("Customer ID:");
+        Title.setText("Title:");
 
-        jLabel2.setText("Status:");
+        Details.setText("Details:");
 
-        jLabel3.setText("Branch ID:");
+        Category.setText("Category");
 
-        jLabel4.setText("Type:");
+        Price.setText("Price");
 
-        add_account_button.setText("Add Account");
-        add_account_button.addActionListener(new java.awt.event.ActionListener() {
+        add_advertisement.setText("Add Advertisement");
+        add_advertisement.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                add_account_buttonActionPerformed(evt);
+                add_advertisementActionPerformed(evt);
             }
         });
 
-        status_combo.setModel(new javax.swing.DefaultComboBoxModel(new String[]{"ACTIVE", "CLOSED", "FROZEN"}));
+        Category_Add.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                Category_AddActionPerformed(evt);
+            }
+        });
+
+        jTextArea1.setColumns(20);
+        jTextArea1.setRows(5);
+        jScrollPane1.setViewportView(jTextArea1);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
-                layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addGroup(layout.createSequentialGroup()
-                                                .addGap(50, 50, 50)
-                                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                                        .addComponent(jLabel4)
-                                                        .addComponent(jLabel3)
-                                                        .addComponent(jLabel2)
-                                                        .addComponent(jLabel1))
-                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                                        .addComponent(customer_id_textbox)
-                                                        .addComponent(status_combo, 0, 124, Short.MAX_VALUE)
-                                                        .addComponent(branch_id_textbox)
-                                                        .addComponent(type_combo, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                                        .addGroup(layout.createSequentialGroup()
-                                                .addGap(115, 115, 115)
-                                                .addComponent(add_account_button)))
-                                .addContainerGap(68, Short.MAX_VALUE))
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(layout.createSequentialGroup()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(115, 115, 115)
+                        .addComponent(add_advertisement))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(59, 59, 59)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(Price)
+                                    .addComponent(Category))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(price_box)
+                                    .addComponent(Category_Add, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(Details)
+                                    .addComponent(Title))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(AdvTitle)
+                                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 170, Short.MAX_VALUE))))))
+                .addContainerGap(45, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
-                layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGroup(layout.createSequentialGroup()
-                                .addGap(39, 39, 39)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                        .addComponent(jLabel1)
-                                        .addComponent(customer_id_textbox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGap(20, 20, 20)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                        .addComponent(jLabel2)
-                                        .addComponent(status_combo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGap(21, 21, 21)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                        .addComponent(jLabel3)
-                                        .addComponent(branch_id_textbox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGap(28, 28, 28)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                        .addComponent(jLabel4)
-                                        .addComponent(type_combo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 39, Short.MAX_VALUE)
-                                .addComponent(add_account_button)
-                                .addGap(40, 40, 40))
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(39, 39, 39)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(Title)
+                    .addComponent(AdvTitle, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(25, 25, 25)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(Details)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 209, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(Category)
+                    .addComponent(Category_Add, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(28, 28, 28)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(Price)
+                    .addComponent(price_box, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addComponent(add_advertisement)
+                .addGap(40, 40, 40))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void add_account_buttonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_add_account_buttonActionPerformed
+    private void add_advertisementActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_add_advertisementActionPerformed
         // TODO add your handling code here:
-        String customer_id = this.customer_id_textbox.getText();
-        String status = this.status_combo.getSelectedItem().toString();
-        String branch_id = this.branch_id_textbox.getText();
-        String type_id = ((Record) this.type_combo.getSelectedItem()).ID;
+        String customer_id = this.AdvTitle.getText();
+        String status = this.Category_Add.getSelectedItem().toString();
+        String branch_id = this.price_box.getText();
+        String type_id = ((Record) this.Category_Add.getSelectedItem()).ID;
         if (customer_id.trim().equals("")) {
             JOptionPane.showMessageDialog(this,
                     "Customer ID is empty",
@@ -151,18 +166,23 @@ public class AddAccountFrame extends javax.swing.JFrame {
                     JOptionPane.INFORMATION_MESSAGE);
             parent.populate_accounts_table();
         }
-    }//GEN-LAST:event_add_account_buttonActionPerformed
+    }//GEN-LAST:event_add_advertisementActionPerformed
+
+    private void Category_AddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Category_AddActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_Category_AddActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton add_account_button;
-    private javax.swing.JTextField branch_id_textbox;
-    private javax.swing.JTextField customer_id_textbox;
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
-    private javax.swing.JComboBox status_combo;
-    private javax.swing.JComboBox type_combo;
+    private javax.swing.JTextField AdvTitle;
+    private javax.swing.JLabel Category;
+    private javax.swing.JComboBox Category_Add;
+    private javax.swing.JLabel Details;
+    private javax.swing.JLabel Price;
+    private javax.swing.JLabel Title;
+    private javax.swing.JButton add_advertisement;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JTextArea jTextArea1;
+    private javax.swing.JTextField price_box;
     // End of variables declaration//GEN-END:variables
 }
