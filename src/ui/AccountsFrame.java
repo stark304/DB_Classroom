@@ -6,6 +6,8 @@
 package ui;
 
 import db.DBManager;
+import java.util.Arrays;
+import java.util.List;
 
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
@@ -20,8 +22,23 @@ public class AccountsFrame extends javax.swing.JFrame {
      */
     DBManager DB;
     String UserID;
-    String[] columns = new String[]{
-            "AdvTitle", "AdvDetails", "Price", "AdvDateTime"
+    String Cat;
+    String Time;
+    int AdvertiseID;
+    String AdvTitle;
+    String AdvDetails;
+    float Price;
+    String Status;
+    String Date;
+    String Year;
+    String Month;
+    String Day;
+    String[] columns_advertisement = new String[]{
+        "AdvTitle", "AdvDetails", "Price", "AdvDateTime"
+    };
+
+    String[] columns_my_advertisment = new String[]{
+        "ID", "Title", "Description", "Price", "Status", "Date"
     };
 
     public AccountsFrame(DBManager DB, String UserID) {
@@ -29,7 +46,9 @@ public class AccountsFrame extends javax.swing.JFrame {
         this.DB = DB;
         this.UserID = UserID;
         initComponents();
-        this.populate_accounts_table();
+        populate_all_accounts_table();
+        populate_accounts_table(UserID);
+
     }
 
     /**
@@ -68,16 +87,21 @@ public class AccountsFrame extends javax.swing.JFrame {
             }
         });
 
-        search_box_Advertisment.setToolTipText("write customer's names to find accounts");
-        search_box_Advertisment.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyReleased(java.awt.event.KeyEvent evt) {
-                search_box_AdvertismentKeyReleased(evt);
+        search_box_Advertisment.setToolTipText("Title and/or Description Search Separate by comma");
+
+        Category_box.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "ALL", "CAT", "HOU", "ELC", "CCA" }));
+        Category_box.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                Category_boxActionPerformed(evt);
             }
         });
 
-        Category_box.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "ALL", "CAT", "HOU", "ELC", "CCA" }));
-
-        Period_box.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Last 3 Months", "Last 6 Months", "Last 12 Months", "Life" }));
+        Period_box.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Life", "Last 3 Months", "Last 6 Months", "Last 12 Months" }));
+        Period_box.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                Period_boxActionPerformed(evt);
+            }
+        });
 
         Go_advertisement.setText("GO");
         Go_advertisement.addActionListener(new java.awt.event.ActionListener() {
@@ -97,9 +121,17 @@ public class AccountsFrame extends javax.swing.JFrame {
 
             },
             new String [] {
-                "ID", "Title", "Description", "Price", "Status", "Date"
+                "AdvTitle", "AdvDetails", "Price", "Date"
             }
-        ));
+        ) {
+            Class[] types = new Class [] {
+                java.lang.Object.class, java.lang.Object.class, java.lang.Float.class, java.lang.Object.class
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+        });
         jScrollPane1.setViewportView(accounts_table_advertisment);
 
         javax.swing.GroupLayout AdvertisementsLayout = new javax.swing.GroupLayout(Advertisements);
@@ -168,9 +200,22 @@ public class AccountsFrame extends javax.swing.JFrame {
 
             },
             new String [] {
-                "AdvTitle", "AdvDetails", "Price", "AdvDateTime"
+                "ID", "Title", "Description", "Price", "Status", "Date"
             }
-        ));
+        ) {
+            Class[] types = new Class [] {
+                java.lang.Integer.class, java.lang.String.class, java.lang.String.class, java.lang.Float.class, java.lang.String.class, java.lang.String.class
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+        });
+        accounts_table_my_advertisment.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                accounts_table_my_advertismentMouseClicked(evt);
+            }
+        });
         jScrollPane2.setViewportView(accounts_table_my_advertisment);
 
         javax.swing.GroupLayout My_AdvertisementLayout = new javax.swing.GroupLayout(My_Advertisement);
@@ -194,9 +239,9 @@ public class AccountsFrame extends javax.swing.JFrame {
                 .addGroup(My_AdvertisementLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(delete_button_my_advertisement)
                     .addComponent(edit_button_my_advertisment))
-                .addGap(18, 18, 18)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 262, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(14, 14, 14))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 268, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(20, 20, 20))
         );
 
         Advertisement_tab.addTab("My Advertisements", My_Advertisement);
@@ -225,15 +270,11 @@ public class AccountsFrame extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void search_box_AdvertismentKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_search_box_AdvertismentKeyReleased
-        // TODO add your handling code here:
-        Object[][] accounts_data = DB.getAccounts(UserID);
-        this.accounts_table_my_advertisment.setModel(new DefaultTableModel(accounts_data, columns));
-
-    }//GEN-LAST:event_search_box_AdvertismentKeyReleased
-
     private void edit_button_my_advertismentActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_edit_button_my_advertismentActionPerformed
         // TODO add your handling code here:
+        EditFrame editFrame = new EditFrame(this, DB,
+                AdvertiseID, AdvTitle, AdvDetails, Price, Status, Year, Month, Day, UserID);
+        editFrame.setVisible(true);
     }//GEN-LAST:event_edit_button_my_advertismentActionPerformed
 
     private void delete_button_my_advertisementActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_delete_button_my_advertisementActionPerformed
@@ -242,6 +283,11 @@ public class AccountsFrame extends javax.swing.JFrame {
 
     private void Go_advertisementActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Go_advertisementActionPerformed
         // TODO add your handling code here:
+        //Gets text and sets it then goes to a function that will query the search
+
+        String full_search = search_box_Advertisment.getText();
+        DBtitle_description_search(full_search);
+
     }//GEN-LAST:event_Go_advertisementActionPerformed
 
     private void add_account_buttonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_add_account_buttonActionPerformed
@@ -250,9 +296,96 @@ public class AccountsFrame extends javax.swing.JFrame {
         addFrame.setVisible(true);
     }//GEN-LAST:event_add_account_buttonActionPerformed
 
-    public void populate_accounts_table() {
+    private void Category_boxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Category_boxActionPerformed
+        // TODO add your handling code here:
+        Cat = (String) Category_box.getSelectedItem();
+        if (Cat == "ALL") {
+            Cat = "%%";
+        }
+        Time = (String) Period_box.getSelectedItem();
+        switch (Time) {
+            case "Last 3 Months":
+                Time = "3";
+                break;
+            case "Last 6 Months":
+                Time = "6";
+                break;
+            case "Last 12 Months":
+                Time = "12";
+                break;
+            case "Life":
+                Time = "%%";
+                break;
+            default:
+                JOptionPane.showMessageDialog(this, "Invalid Period", "Error", JOptionPane.ERROR_MESSAGE);
+        }
+        DBAdvertisementFilter(Time, Cat);
+
+    }//GEN-LAST:event_Category_boxActionPerformed
+
+    private void Period_boxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Period_boxActionPerformed
+        // TODO add your handling code here:
+        Time = (String) Period_box.getSelectedItem();
+        switch (Time) {
+            case "Last 3 Months":
+                Time = "3";
+                break;
+            case "Last 6 Months":
+                Time = "6";
+                break;
+            case "Last 12 Months":
+                Time = "12";
+                break;
+            case "Life":
+                Time = "%%";
+                break;
+            default:
+                JOptionPane.showMessageDialog(this, "Invalid Period", "Error", JOptionPane.ERROR_MESSAGE);
+        }
+        Cat = (String) Category_box.getSelectedItem();
+        if (Cat == "ALL") {
+            Cat = "%%";
+        }
+        DBAdvertisementFilter(Time, Cat);
+
+    }//GEN-LAST:event_Period_boxActionPerformed
+
+    private void accounts_table_my_advertismentMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_accounts_table_my_advertismentMouseClicked
+        // TODO add your handling code here:
+        DefaultTableModel model = (DefaultTableModel) accounts_table_my_advertisment.getModel();
+        int selectRowIndex = accounts_table_my_advertisment.getSelectedRow();
+        AdvertiseID = (int) model.getValueAt(selectRowIndex, 0);
+        AdvTitle = (String) model.getValueAt(selectRowIndex, 1);
+        AdvDetails = (String) model.getValueAt(selectRowIndex, 2);
+        Price = (float) model.getValueAt(selectRowIndex, 3);
+        Status = (String) model.getValueAt(selectRowIndex, 4);
+        Date = (String) model.getValueAt(selectRowIndex, 5);
+        List<String> DateList = Arrays.asList(Date.split("-"));
+        Year = DateList.get(0);
+        Month = DateList.get(1);
+        Day = DateList.get(2);
+
+    }//GEN-LAST:event_accounts_table_my_advertismentMouseClicked
+
+    //populate all query result
+    public void populate_all_accounts_table() {
+        Object[][] accounts_data = DB.getallAccounts();
+        this.accounts_table_advertisment.setModel(new DefaultTableModel(accounts_data, columns_advertisement));
+    }
+
+    public void populate_accounts_table(String UserID) {
         Object[][] accounts_data = DB.getAccounts(UserID);
-        this.accounts_table_my_advertisment.setModel(new DefaultTableModel(accounts_data, columns));
+        this.accounts_table_my_advertisment.setModel(new DefaultTableModel(accounts_data, columns_my_advertisment));
+    }
+
+    public void DBAdvertisementFilter(String Time, String Cat) {
+        Object[][] accounts_data = DB.filter(Time, Cat);
+        this.accounts_table_advertisment.setModel(new DefaultTableModel(accounts_data, columns_advertisement));
+    }
+
+    public void DBtitle_description_search(String full_text) {
+        Object[][] accounts_data = DB.title_description_search(full_text);
+        this.accounts_table_advertisment.setModel(new DefaultTableModel(accounts_data, columns_advertisement));
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -272,7 +405,6 @@ public class AccountsFrame extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JTextField search_box_Advertisment;
     // End of variables declaration//GEN-END:variables
 }

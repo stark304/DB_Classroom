@@ -22,6 +22,7 @@ public class Main {
             DB.connect("root", "", "127.0.0.1", "3306", "advertise");
 
             JFrame LoginFrame = new LoginFrame(DB);
+            LoginFrame.setLocationRelativeTo(null);
             LoginFrame.setVisible(true);
         } catch (Exception e) {
 

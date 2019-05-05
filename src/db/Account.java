@@ -71,4 +71,7 @@ public class Account {
         return new Object[]{AdvTitle, AdvDetails, Price, AdvDateTime};
     }
 
+    Object[] mytoArray(){
+        return new Object[]{AdvertisementID,AdvTitle,AdvDetails,Price,StatusID,AdvDateTime};
+    }
 }

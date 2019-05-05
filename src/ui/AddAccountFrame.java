@@ -20,25 +20,16 @@ public class AddAccountFrame extends javax.swing.JFrame {
      * Creates new form AddAccountFrame
      */
     DBManager DB;
-    String employee_id;
+    String UserID;
     AccountsFrame parent;
+    float Price_Frame;
 
-    public AddAccountFrame(AccountsFrame parent, DBManager DB, String employee_id) {
-        this.setTitle("Add Frame");
+    public AddAccountFrame(AccountsFrame parent, DBManager DB, String UserID) {
+        this.setTitle("Add Advertisement");
         this.parent = parent;
         this.DB = DB;
-        this.employee_id = employee_id;
+        this.UserID = parent.UserID;
         initComponents();
-        populate_account_types();
-    }
-
-    private void populate_account_types() {
-        LinkedList<Record> account_types = DB.getAccountTypes();
-        this.Category_Add.removeAllItems();
-        for (Record account_type : account_types) {
-            this.Category_Add.addItem(account_type);
-        }
-
     }
 
     /**
@@ -59,9 +50,9 @@ public class AddAccountFrame extends javax.swing.JFrame {
         price_box = new javax.swing.JTextField();
         Category_Add = new javax.swing.JComboBox();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTextArea1 = new javax.swing.JTextArea();
+        Details_box = new javax.swing.JTextArea();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         Title.setText("Title:");
 
@@ -78,15 +69,11 @@ public class AddAccountFrame extends javax.swing.JFrame {
             }
         });
 
-        Category_Add.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                Category_AddActionPerformed(evt);
-            }
-        });
+        Category_Add.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "CAT", "HOU", "ELC", "CCA" }));
 
-        jTextArea1.setColumns(20);
-        jTextArea1.setRows(5);
-        jScrollPane1.setViewportView(jTextArea1);
+        Details_box.setColumns(20);
+        Details_box.setRows(5);
+        jScrollPane1.setViewportView(Details_box);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -147,42 +134,70 @@ public class AddAccountFrame extends javax.swing.JFrame {
 
     private void add_advertisementActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_add_advertisementActionPerformed
         // TODO add your handling code here:
-        String customer_id = this.AdvTitle.getText();
-        String status = this.Category_Add.getSelectedItem().toString();
-        String branch_id = this.price_box.getText();
-        String type_id = ((Record) this.Category_Add.getSelectedItem()).ID;
-        if (customer_id.trim().equals("")) {
+        String AdvTitle = this.AdvTitle.getText().trim();
+        String AdvDetails = this.Details_box.getText().trim();
+        String Category = this.Category_Add.getSelectedItem().toString().trim();
+
+        if (price_box.getText().trim().equals("")) {
             JOptionPane.showMessageDialog(this,
-                    "Customer ID is empty",
+                    "Price is empty. Enter a number",
                     "Error",
                     JOptionPane.ERROR_MESSAGE);
             return;
         }
-        boolean result = DB.addAccount(customer_id, status, branch_id, employee_id, type_id);
+        try {
+            float Price_t = Float.valueOf(this.price_box.getText().trim()).floatValue();
+            if (Price_t < 0) {
+                JOptionPane.showMessageDialog(this,
+                        "Price should be positive",
+                        "Error",
+                        JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+            Price_Frame = Price_t;
+        } catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(this,
+                    "Price isn't a number",
+                    "Error",
+                    JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+
+        if (AdvTitle.trim().equals("")) {
+            JOptionPane.showMessageDialog(this,
+                    "AdvTitle is empty",
+                    "Error",
+                    JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+        if (AdvDetails.trim().equals("")) {
+            JOptionPane.showMessageDialog(this,
+                    "AdvDetails is empty",
+                    "Error",
+                    JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+        boolean result = DB.addAccount(AdvTitle, AdvDetails, Price_Frame, UserID, Category);
         if (result) {
             JOptionPane.showMessageDialog(this,
-                    "A new account was added correctly",
+                    "A new advertisement was added correctly",
                     "Confirmation",
                     JOptionPane.INFORMATION_MESSAGE);
-            parent.populate_accounts_table();
+            parent.populate_all_accounts_table();
+            parent.populate_accounts_table(UserID);
         }
     }//GEN-LAST:event_add_advertisementActionPerformed
-
-    private void Category_AddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Category_AddActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_Category_AddActionPerformed
-
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTextField AdvTitle;
     private javax.swing.JLabel Category;
     private javax.swing.JComboBox Category_Add;
     private javax.swing.JLabel Details;
+    private javax.swing.JTextArea Details_box;
     private javax.swing.JLabel Price;
     private javax.swing.JLabel Title;
     private javax.swing.JButton add_advertisement;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTextArea jTextArea1;
     private javax.swing.JTextField price_box;
     // End of variables declaration//GEN-END:variables
 }
