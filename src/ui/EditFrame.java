@@ -6,7 +6,6 @@
 package ui;
 
 import db.DBManager;
-import db.DBManager.Record;
 import java.util.HashSet;
 
 import java.util.LinkedList;

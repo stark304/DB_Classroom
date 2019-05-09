@@ -9,6 +9,7 @@ package db;
  * @author kuhail
  */
 public class Account {
+
     private int AdvertisementID;
     private String AdvTitle;
     private String AdvDetails;
@@ -71,7 +72,15 @@ public class Account {
         return new Object[]{AdvTitle, AdvDetails, Price, AdvDateTime};
     }
 
-    Object[] mytoArray(){
-        return new Object[]{AdvertisementID,AdvTitle,AdvDetails,Price,StatusID,AdvDateTime};
+    Object[] mytoArray() {
+        return new Object[]{AdvertisementID, AdvTitle, AdvDetails, Price, StatusID, AdvDateTime};
+    }
+
+    Object[] modtoArray() {
+        return new Object[]{AdvertisementID, AdvTitle, AdvDetails, Price, AdvDateTime, UserID};
+    }
+
+    Object[] myModtoArray() {
+        return new Object[]{AdvertisementID, AdvTitle, AdvDetails, Price, StatusID, AdvDateTime, UserID};
     }
 }
